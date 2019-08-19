@@ -1,0 +1,10 @@
+env:
+  matrix:
+  - VERSION=0.0.1
+
+services:
+- docker
+
+script:
+- docker build --build-arg VERSION="${VERSION}" -t temp-build .
+- docker run --rm temp-build --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
