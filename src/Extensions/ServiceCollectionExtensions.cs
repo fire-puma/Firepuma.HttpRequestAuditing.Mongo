@@ -15,9 +15,9 @@ namespace Firepuma.HttpRequestAuditing.Mongo.Extensions
                 {
                     throw new Exception($"Please register IErrorReportingService service before calling {nameof(AddRequestAuditingService)}");
                 }
-                if (scope.ServiceProvider.GetService<IActorProvider<TActor>>() == null)
+                if (scope.ServiceProvider.GetService<IActorProviderHolder<TActor>>() == null)
                 {
-                    throw new Exception($"Please register IActorProvider<TActor> service before calling {nameof(AddRequestAuditingService)}");
+                    throw new Exception($"Please register IActorProviderHolder<TActor> service before calling {nameof(AddRequestAuditingService)}");
                 }
 
                 services.AddScoped<IRequestAuditingService, RequestAuditingService<TActor>>();
