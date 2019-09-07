@@ -49,20 +49,21 @@ namespace Firepuma.HttpRequestAuditing.Mongo
 
             var actionName = context.ActionDescriptor?.DisplayName;
             var path = context.HttpContext?.Request?.Path.Value;
+            var method = context.HttpContext?.Request?.Method;
             var query = context.HttpContext?.Request?.QueryString.Value;
 
             var bodyParameters = context.ActionDescriptor?.Parameters?.Where(x => x.BindingInfo.BindingSource.Id == "Body").ToArray();
             if (bodyParameters == null || !bodyParameters.Any())
             {
                 const string bodyString = (string) null;
-                await _requestAuditingService.Add(actionName, path, query, bodyString);
+                await _requestAuditingService.Add(actionName, path, method, query, bodyString);
             }
             else
             {
                 foreach (var bodyParameter in bodyParameters)
                 {
                     var bodyString = GetRequestBodyOrDefault(context, bodyParameter);
-                    await _requestAuditingService.Add(actionName, path, query, bodyString);
+                    await _requestAuditingService.Add(actionName, path, method, query, bodyString);
                 }
             }
         }

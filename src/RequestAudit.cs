@@ -21,12 +21,13 @@ namespace Firepuma.HttpRequestAuditing.Mongo
 
         public string Action { get; set; }
         public string Path { get; set; }
+        public string Method { get; set; }
         public string Query { get; set; }
         public string Body { get; set; }
 
         public DateTime? Updated { get; set; }
 
-        public RequestAudit(AuditActor actor, string actorIp, string personName, string action, string path, string query, string body)
+        public RequestAudit(AuditActor actor, string actorIp, string personName, string action, string path, string method, string query, string body)
         {
             Id = ObjectId.GenerateNewId().ToString();
             Timestamp = DateTime.UtcNow;
@@ -35,6 +36,7 @@ namespace Firepuma.HttpRequestAuditing.Mongo
             PersonName = personName;
             Action = action;
             Path = path;
+            Method = method;
             Query = query;
             Body = body;
         }

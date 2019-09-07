@@ -20,13 +20,13 @@ namespace Firepuma.HttpRequestAuditing.Mongo
             _requestAuditRepository = requestAuditRepository;
         }
 
-        public async Task Add(string action, string path, string query, string body)
+        public async Task Add(string action, string path, string method, string query, string body)
         {
             var actor = await _actorProviderHolder.Provider.GetActor();
             var remoteIp = _remoteIpProvider.GetRemoteIp();
 
             var auditActor = new RequestAudit.AuditActor(actor.Id, actor.Email, actor.FullName);
-            var record = new RequestAudit(auditActor, remoteIp, actor.FullName, action, path, query, body);
+            var record = new RequestAudit(auditActor, remoteIp, actor.FullName, action, path, method, query, body);
 
             await _requestAuditRepository.Add(record);
         }

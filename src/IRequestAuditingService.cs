@@ -4,6 +4,6 @@ namespace Firepuma.HttpRequestAuditing.Mongo
 {
     public interface IRequestAuditingService
     {
-        Task Add(string action, string path, string query, string body);
+        Task Add(string action, string path, string method, string query, string body);
     }
 }
